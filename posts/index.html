@@ -18,7 +18,7 @@ title: 博客
   <div class="grid md:grid-cols-2 gap-6">
     {% for post in paginator.posts %}
     <div x-show="cat === '全部' || post.categories contains cat" class="bg-white dark:bg-gray-800 rounded-lg shadow p-6 flex flex-col">
-      <a href="{{ post.url }}" class="text-xl font-semibold mb-2 hover:text-[var(--color-accent)]">{{ post.title }}</a>
+      <a href="{{ site.baseurl }}{{ post.url }}" class="text-xl font-semibold mb-2 hover:text-[var(--color-accent)]">{{ post.title }}</a>
       <div class="text-gray-500 text-sm mb-2">{{ post.date | date: '%Y-%m-%d' }} | {{ post.categories | join: ', ' }}</div>
       <p class="flex-1 text-gray-600 dark:text-gray-300 mb-4">{{ post.excerpt | strip_html | truncate: 80 }}</p>
       <div class="flex flex-wrap gap-2">
@@ -32,11 +32,11 @@ title: 博客
   <!-- 分页 -->
   <div class="mt-8 flex justify-center space-x-2">
     {% if paginator.previous_page %}
-      <a href="{{ paginator.previous_page_path }}" class="px-3 py-1 rounded bg-gray-200 dark:bg-gray-700">上一页</a>
+      <a href="{{ paginator.previous_page_path | prepend: site.baseurl }}" class="px-3 py-1 rounded bg-gray-200 dark:bg-gray-700">上一页</a>
     {% endif %}
     <span class="px-3 py-1">第 {{ paginator.page }} / {{ paginator.total_pages }} 页</span>
     {% if paginator.next_page %}
-      <a href="{{ paginator.next_page_path }}" class="px-3 py-1 rounded bg-gray-200 dark:bg-gray-700">下一页</a>
+      <a href="{{ paginator.next_page_path | prepend: site.baseurl }}" class="px-3 py-1 rounded bg-gray-200 dark:bg-gray-700">下一页</a>
     {% endif %}
   </div>
 </section> 
