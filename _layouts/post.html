@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-CN" x-data="{ dark: localStorage.getItem('theme') === 'dark' }" x-bind:class="{ 'dark': dark }" x-init="$watch('dark', val => localStorage.setItem('theme', val ? 'dark' : 'light'))">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ page.title }} - {{ site.title }}</title>
+    <meta name="description" content="{{ page.description | default: site.description }}">
+    {% seo %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@3.4.1/dist/tailwind.min.css">
+    <link rel="stylesheet" href="/assets/css/tailwind.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-tomorrow.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-python.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-javascript.min.js"></script>
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="{{ "/feed.xml" | relative_url }}">
+    <meta name="theme-color" content="#1a2238">
+  </head>
+  <body class="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300">
+    {% include header.html %}
+    <!-- 阅读进度条 -->
+    <div x-data="{ progress: 0 }" x-init="window.addEventListener('scroll', () => { progress = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100 })" class="fixed top-0 left-0 w-full h-1 z-50">
+      <div :style="'width:' + progress + '%'" class="h-1 bg-[var(--color-accent)] transition-all"></div>
+    </div>
+    <main class="max-w-3xl mx-auto py-12 px-4">
+      <h1 class="text-3xl font-bold mb-4">{{ page.title }}</h1>
+      <div class="text-gray-500 text-sm mb-6">{{ page.date | date: '%Y-%m-%d' }} | {{ page.categories | join: ', ' }}</div>
+      <!-- 目录导航 -->
+      {% if page.toc %}
+      <nav id="toc" class="mb-8 p-4 bg-gray-100 dark:bg-gray-800 rounded">
+        <strong>目录</strong>
+        <!-- 目录自动生成可用 jekyll-toc 插件或 JS -->
+        {% include toc.html %}
+      </nav>
+      {% endif %}
+      <article class="prose dark:prose-invert max-w-none">
+        {{ content }}
+      </article>
+      <!-- 标签 -->
+      <div class="mt-8 flex flex-wrap gap-2">
+        {% for tag in page.tags %}
+        <span class="px-2 py-0.5 rounded bg-gray-200 dark:bg-gray-700 text-xs">{{ tag }}</span>
+        {% endfor %}
+      </div>
+      <!-- 评论区（Giscus 预留） -->
+      <div class="mt-12">
+        <script src="https://giscus.app/client.js"
+          data-repo="your-github-username/your-repo"
+          data-repo-id=""
+          data-category="Announcements"
+          data-category-id=""
+          data-mapping="pathname"
+          data-strict="0"
+          data-reactions-enabled="1"
+          data-emit-metadata="0"
+          data-input-position="bottom"
+          data-theme="preferred_color_scheme"
+          data-lang="zh-CN"
+          crossorigin="anonymous"
+          async>
+        </script>
+      </div>
+    </main>
+    {% include footer.html %}
+  </body>
+</html> 

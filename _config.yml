@@ -1,0 +1,40 @@
+title: 你的博客名
+email: your@email.com
+description: >- # 博客描述
+  这里是我的极简个人博客，基于 Jekyll + Tailwind CSS + Alpine.js
+baseurl: "" # 根路径
+url: "https://your-github-username.github.io" # GitHub Pages 地址
+author: 你的名字
+lang: zh-CN
+
+# 主题与插件
+markdown: kramdown
+highlighter: rouge
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-paginate
+  - jekyll-sitemap
+
+paginate: 8
+paginate_path: "/posts/page:num/"
+
+# 目录结构
+collections:
+  projects:
+    output: true
+    permalink: /projects/:name/
+
+# Feed
+feed:
+  path: feed.xml
+
+# Exclude
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor
+
+# 其他
+permalink: /posts/:title/ 
