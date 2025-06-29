@@ -3,7 +3,7 @@ email: your@email.com
 description: >- # 博客描述
   这里是我的极简个人博客，基于 Jekyll + Tailwind CSS + Alpine.js
 baseurl: "/MyTryProjects" # 根路径
-url: "https://your-github-username.github.io" # GitHub Pages 地址
+url: "https://haibarayileina.github.io" # GitHub Pages 地址
 author: 你的名字
 lang: zh-CN
 
